@@ -5,9 +5,14 @@ name = "f4ether"
 version = "0.1.0"
 
 [dependencies]
-cortex-m = "0.5.7"
-cortex-m-rt = "0.6.3"
-panic-halt = "0.2.0"
+cortex-m = "~0.5"
+cortex-m-rt = "~0.6"
+panic-halt = "~0.2"
+
+# Temporarily use a local custom build of the stm32f407 device crate.
+[dependencies.stm32f407]
+path = "stm32f407"
+features = ["rt"]
 
 # this lets you use `cargo fix`!
 [[bin]]

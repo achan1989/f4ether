@@ -1,7 +1,7 @@
 **/*.rs.bk
 .#*
 .gdb_history
-Cargo.lock
 .cargo/
 target/
 openocd.*
+stm32f407/Cargo.lock

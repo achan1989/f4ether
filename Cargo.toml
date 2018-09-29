@@ -8,6 +8,8 @@ version = "0.1.0"
 cortex-m = "~0.5"
 cortex-m-rt = "~0.6"
 panic-halt = "~0.2"
+panic-semihosting = "~0.5"
+cortex-m-semihosting = "~0.3"
 
 # Temporarily use a local custom build of the stm32f407 device crate.
 [dependencies.stm32f407]

@@ -1,0 +1,23 @@
+[package]
+authors = ["adrian"]
+edition = "2018"
+name = "stm32f407"
+version = "0.1.0"
+
+[dependencies]
+bare-metal = "~0.2"
+cortex-m = "~0.5"
+vcell = "~0.1"
+
+[dependencies.cortex-m-rt]
+optional = true
+version = "~0.6"
+
+[features]
+default = []
+rt = ["cortex-m-rt/device"]
+
+[profile.release]
+codegen-units = 1 # better optimizations
+debug = true # symbols are nice and they don't increase the size on Flash
+lto = true # better optimizations

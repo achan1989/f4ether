@@ -194,6 +194,27 @@ fn setup_eth(periph: &stm32f407::Peripherals) {
         .ethmacen().enabled());
     periph.RCC.ahb1rstr.modify(|_r, w| w.ethmacrst().clear_bit());
 
+    // Don't want interrupts caused by PTP or WoL.
+    periph.ETHERNET_MAC.macimr.modify(|_r, w| w
+        .pmtim().masked()
+        .tstim().masked());
+
+    // Have 2 FIFOs for tx and rx, 2kb each.
+    // Set up DMA for TX only.
+    periph.ETHERNET_DMA.dmabmr.modify(|_r, w| w
+        .aab().aligned()
+        .fb().fixed()
+        .pbl().pbl32());
+    periph.ETHERNET_DMA.dmaier.write(|w| w
+        .nise().set_bit()
+        .aise().set_bit()
+        .fbeie().set_bit()
+        .tuie().set_bit()
+        .tjtie().set_bit()
+        .tbuie().set_bit()
+        .tpsie().set_bit()
+        .tie().set_bit());
+
     // Set up SMI comms between the MAC and PHY.
     // PHY is hard coded to use address 0.
     while periph.ETHERNET_MAC.macmiiar.read().mb().is_busy() {}
